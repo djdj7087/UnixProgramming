@@ -1,15 +1,14 @@
-//
-// Created by wooyoung on 4/8/20.
-//
+// chat.c -- CP33357 assignment 2, Spring 2020
+// Choi Woo Young, id #201524600, section 059, TAK. SUNG WOO
 
 #include "mychatheader.h"
 
 int main(int argc, char *argv[]) {
-    key_t shm_key = 20200406;         // Key for Shared Memory
-    int shm_id;                     // shared memory's ID
-    int start_index = 0;                // start index for message
-    char userID[20];                 // Variable for User ID
-    CHAT_INFO *chatInfo = NULL;           // Structure for Chatting
+    key_t       shm_key = 20200406;         // Key for Shared Memory
+    int         shm_id;                     // shared memory's ID
+    int         start_index = 0;            // start index for message
+    char        userID[20];                 // Variable for User ID
+    CHAT_INFO   *chatInfo = NULL;           // Structure for Chatting
 
     void *shmaddr;
 
@@ -51,7 +50,9 @@ int main(int argc, char *argv[]) {
         fgets(message, 40, stdin);
         if (!strcmp(message, "..\n")) {
             printf("---------------Unread Messages---------------\n");
-            /* shared memory read */
+            /*
+             * shared memory read from start_index to last message
+             */
             for (int i = start_index; i < chatInfo->totalMessageCount; i++) {
                 printf("%ld/[%s] >> %s",
                        chatInfo->messageContainer[i].messageID,
@@ -61,11 +62,14 @@ int main(int argc, char *argv[]) {
             start_index = chatInfo->totalMessageCount;
 
         } else {
+            /* If message was "/bye" then, quit message stored */
             if (!strcmp(message, "/bye\n")) {
                 strcpy(chatInfo->quitMessage.userID, userID);
                 chatInfo->quitMessage.messageID = -1;
                 strcpy(chatInfo->quitMessage.message, message);
-            } else {
+            }
+            /* When normal message is coming... */
+            else {
                 strcpy(chatInfo->messageContainer[chatInfo->totalMessageCount].userID,
                         userID);
                 chatInfo->messageContainer[chatInfo->totalMessageCount].messageID =
