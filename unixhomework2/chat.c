@@ -46,6 +46,7 @@ int main(int argc, char *argv[]) {
         char message[40];
 
         /* shared memory write */
+        printf("---------------Enter Message---------------\n");
         printf("[%s] >> ", userID);
         fgets(message, 40, stdin);
         if (!strcmp(message, "..\n")) {

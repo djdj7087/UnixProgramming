@@ -1,7 +1,6 @@
 // mychatheader.h -- CP33357 assignment 2, Spring 2020
 // Choi Woo Young, id #201524600, section 059, TAK. SUNG WOO
 
-
 #ifndef UNIXHOMEWORK2_MYCHATHEADER_H
 #define UNIXHOMEWORK2_MYCHATHEADER_H
 
