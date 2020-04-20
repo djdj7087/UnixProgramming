@@ -1,5 +1,5 @@
 clock : main.o localtime.o localdate.o elapsedtime.o
-	gcc -g -o clock main.o localtime.o localdate.o elapsedtime.o -lncurses -lpthread
+	gcc -g -Wall -o clock main.o localtime.o localdate.o elapsedtime.o -lncurses -lpthread
 
 main.o : main.c
 	gcc -c -o main.o main.c
