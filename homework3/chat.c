@@ -15,11 +15,11 @@ int main(int argc, char *argv[]) {
     } else {
         strcpy(userID, argv[1]);
 
-        initscr();
+        initscr();                          // initializing main terminal screen
 
         getmaxyx(stdscr, row, col);         // get window's row_size and col_size
 
-        chat();
+        chat();                             // call main chatting function
 
         endwin();
     }
@@ -65,6 +65,7 @@ void chat() {
     buff_out.id = 0;
     is_running = 1;
 
+    /* declare for thread */
     pthread_t thread[4];
 
     pthread_create(&thread[0], NULL, get_input, NULL);
@@ -82,6 +83,7 @@ void chat() {
     delwin(logging_scr);
     delwin(time_scr);
 }
+
 void *get_input() {
     char tmp[BUFFSIZE];
 
@@ -96,7 +98,7 @@ void *get_input() {
             buff_in.id = chatInfo->totalMessageCount;
             chatInfo->messageContainer[chatInfo->totalMessageCount] = buff_in;
             die("bye");
-        } else {
+        } else { /* else if user typed another words */
             chatInfo->totalMessageCount++;
             strcpy(buff_in.userID, userID);
             strcpy(buff_in.message, tmp);
@@ -112,6 +114,7 @@ void *get_input() {
     }
     return NULL;
 }
+
 void *print_time() {
     /* For hh-mm-ss */
     int hour = 0;
@@ -155,10 +158,13 @@ void *print_time() {
 
     return NULL;
 }
-void *print_logging() {
-    bool isLoggedIn = false;
-    int totalPersonCount = 0;
 
+/* Function for print logging in persons */
+void *print_logging() {
+    bool isLoggedIn = false;            // Logged In Flag for not allow duplication
+    int totalPersonCount = 0;           // Variable for count total person number
+
+    /* If person count is zero -> must initialize user */
     if(chatInfo->totalPersonCount == 0) {
         strcpy(chatInfo->personContainer[chatInfo->totalPersonCount].userID, userID);
         chatInfo->totalPersonCount += 1;
@@ -168,6 +174,7 @@ void *print_logging() {
                 isLoggedIn = true;
             }
         }
+        /* if user is not logged in, user can log in */
         if(!isLoggedIn) {
             strcpy(chatInfo->personContainer[chatInfo->totalPersonCount].userID, userID);
             chatInfo->totalPersonCount += 1;
@@ -175,6 +182,10 @@ void *print_logging() {
     }
 
     while (is_running) {
+        /*
+         * if total person count and shared memory's total person count is different,
+         * we can notice new person is logged in...
+         */
         if(totalPersonCount != chatInfo->totalPersonCount) {
             werase(logging_scr);
             totalPersonCount = chatInfo->totalPersonCount;
@@ -187,7 +198,9 @@ void *print_logging() {
     }
     return NULL;
 }
+
 void print_chat() {
+    /* If person quit and reenter chat room... previous chatting is showed */
     for(int i = 1 ; i < chatInfo->totalMessageCount ; i++) {
         if(!strcmp(chatInfo->messageContainer[i].message, "quit")) {
             wprintw(output_scr, " %s is out ...\n", chatInfo->messageContainer[i].userID);
@@ -199,6 +212,7 @@ void print_chat() {
                 chatInfo->messageContainer[i].message);
     }
 }
+
 void *recv_send() {
     struct message oldmsg;
 
@@ -221,8 +235,10 @@ void *recv_send() {
     }
     return NULL;
 }
+
 void die(char *s) {
     int personIndex = 0;
+    /* If total person count is one... when user quit, we need to remove shared memory */
     if(chatInfo->totalPersonCount == 1) {
         chatremove();
     } else if(chatInfo->totalPersonCount > 1){
@@ -231,6 +247,7 @@ void die(char *s) {
                 personIndex = i;
             } else { continue; }
         }
+        /* Erase Person's Information when user quit... */
         for(int i = personIndex ; i < chatInfo->totalPersonCount-1 ; i++) {
             chatInfo->personContainer[i] = chatInfo->personContainer[i+1];
         }

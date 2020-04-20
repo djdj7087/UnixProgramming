@@ -5,13 +5,16 @@
 
 #include "mychatheader.h"
 
+/* Function for draw boxes, and redraw and refresh boxes */
 void *draw_box()
 {
+    /* Draw all boxes */
     box(input_scr, ACS_VLINE, ACS_HLINE);
     box(output_scr, ACS_VLINE, ACS_HLINE);
     box(logging_scr, ACS_VLINE, ACS_HLINE);
     box(time_scr, ACS_VLINE, ACS_HLINE);
 
+    /* Refresh all boxes */
     wrefresh(input_scr);
     wrefresh(output_scr);
     wrefresh(logging_scr);

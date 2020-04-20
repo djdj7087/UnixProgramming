@@ -5,6 +5,7 @@
 
 #include "mychatheader.h"
 
+/* Function for Erase Shared memory... */
 void chatremove() {
     int shm_id;
 

@@ -5,6 +5,7 @@
 
 #include "mychatheader.h"
 
+/* Function for clean up screens */
 void cleanup() {
     delwin(input_scr);
     delwin(output_scr);
