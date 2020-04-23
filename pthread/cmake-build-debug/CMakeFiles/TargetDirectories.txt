@@ -1,0 +1,3 @@
+/home/wooyoung/CLionProjects/pthread/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/wooyoung/CLionProjects/pthread/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/wooyoung/CLionProjects/pthread/cmake-build-debug/CMakeFiles/pthreadexit.dir
