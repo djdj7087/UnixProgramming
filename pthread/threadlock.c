@@ -13,7 +13,8 @@ pthread_mutex_t lock;
 int counter;
 
 void *doSomething(void *arg) {
-    pthread_mutex_lock()
+    pthread_mutex_lock(&lock);
+
     counter += 1;
 
     printf("Job %d started\n", counter);
@@ -25,6 +26,8 @@ void *doSomething(void *arg) {
     for(unsigned long i = 0 ; i < (0xFFFFFFFF) ; i++);
 
     printf("Job %d finished\n", counter);
+
+    pthread_mutex_unlock(&lock);
 
     return NULL;
 }
