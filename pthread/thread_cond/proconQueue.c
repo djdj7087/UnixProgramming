@@ -118,14 +118,14 @@ void *consumer(void *q) {
         pthread_mutex_lock(fifo->mutex);
         /* TODO if fifo is not empty... escape this while loop */
         while (fifo->empty) {
-            printf("producer: queue EMPTY. \n");
+            printf("consumer: queue EMPTY. \n");
             pthread_cond_wait(fifo->notEmpty, fifo->mutex);
         }
         queueDel(fifo, &d);
         /* TODO Finally, we need unlock */
         pthread_mutex_unlock(fifo->mutex);
         pthread_cond_signal(fifo->notFull);
-        printf("producer: delete %d\n", d);
+        printf("consumer: delete %d\n", d);
         sleep(5);
     }
 

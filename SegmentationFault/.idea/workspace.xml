@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e380b40b-3756-4816-921d-762ab1bc2a69" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/constantStr.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stackoverflow.c" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1avyAEO2JiJgts7Lz2rJY703zFd" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ncurses" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e380b40b-3756-4816-921d-762ab1bc2a69" name="Default Changelist" comment="" />
+      <created>1587630216314</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587630216314</updated>
+      <workItem from="1587630217750" duration="17000" />
+      <workItem from="1587639341478" duration="33000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="529" y="239" width="424" height="484" key="FileChooserDialogImpl" timestamp="1587639373227">
+      <screen x="0" y="27" width="1920" height="957" />
+    </state>
+    <state x="529" y="239" key="FileChooserDialogImpl/0.27.1920.957@0.27.1920.957" timestamp="1587639373227" />
+    <state x="264" y="231" width="424" height="484" key="FileChooserDialogImpl/0.27.958.920@0.27.958.920" timestamp="1587630227122" />
+  </component>
+</project>
