@@ -56,9 +56,6 @@ void *DisplayMessageThread(void *q);
 // Function Prototype for print time
 void *print_time();
 
-// Function Prototype for print chat history
-void print_chat();
-
 // Function Prototype for print logging in users
 void *print_logging();
 
@@ -238,23 +235,6 @@ void *print_time() {
     return NULL;
 }
 
-/* Function for print existed message */
-void print_chat() {
-    /* If person quit and reenter chat room... previous chatting is showed */
-    sem_wait(sem_chat);
-    for (int i = 1; i < chatInfo->totalMessageCount; i++) {
-        if (!strcmp(chatInfo->messageContainer[i].message, "quit")) {
-            wprintw(output_scr, " %s is out ...\n", chatInfo->messageContainer[i].userID);
-        } else {
-            wprintw(output_scr, " [%s: %d] > %s\n",
-                    chatInfo->messageContainer[i].userID,
-                    chatInfo->messageContainer[i].id,
-                    chatInfo->messageContainer[i].message);
-        }
-    }
-    sem_post(sem_chat);
-}
-
 /* Function for print logging in persons */
 void *print_logging() {
     bool isLoggedIn = false;            // Logged In Flag for not allow duplication
@@ -339,16 +319,17 @@ void *auto_input() {
     char tmp[BUFFSIZE];
     char num[BUFFSIZE];
 
-    srand((unsigned int) time(NULL));
-
     while (is_running) {
+        srand((unsigned int) time(NULL) + (unsigned int)getpid());
+        int random_sec = (rand() % 1001) + 1000;
+
         sem_wait(sem_chat);
         if (!strcmp("Jico", userID)) {
             chatInfo->totalMessageCount++;
             auto_msg_count++;
             strcpy(buff_in.userID, userID);
             strcpy(tmp, "Hello!! My name is Jico\n I love to sing any song. - ");
-            sprintf(num, "%d", auto_msg_count);
+            sprintf(num, "%d\n", auto_msg_count);
             strcat(tmp, num);
             strcpy(buff_in.message, tmp);
             buff_in.id = chatInfo->totalMessageCount;
@@ -358,14 +339,14 @@ void *auto_input() {
             auto_msg_count++;
             strcpy(buff_in.userID, userID);
             strcpy(tmp, "Hi!! I am Izzy\n I like to play on the stage. Ho. - ");
-            sprintf(num, "%d", auto_msg_count);
+            sprintf(num, "%d\n", auto_msg_count);
             strcat(tmp, num);
             strcpy(buff_in.message, tmp);
             buff_in.id = chatInfo->totalMessageCount;
             chatInfo->messageContainer[chatInfo->totalMessageCount] = buff_in;
         }
         sem_post(sem_chat);
-        sleep(2);
+        usleep(random_sec * 1000);
     }
     return NULL;
 }
@@ -376,8 +357,8 @@ void *FetchMessageFromShmThread(void *q) {
     struct message oldmsg;
 
     while (is_running) {
-        sem_wait(sem_chat);
         pthread_mutex_lock(message_q->mutex);
+        sem_wait(sem_chat);
         while (message_q->full) {
             pthread_cond_wait(message_q->notFull, message_q->mutex);
         }
@@ -388,17 +369,17 @@ void *FetchMessageFromShmThread(void *q) {
             /* If we got new messages, push into queue */
             if(oldmsg.id != buff_out.id) {
                 queueAdd(message_q, buff_out);
-                pthread_mutex_unlock(message_q->mutex);
-                pthread_cond_signal(message_q->notEmpty);
+                oldmsg.id = buff_out.id;
             }
         }
+        pthread_mutex_unlock(message_q->mutex);
+        pthread_cond_signal(message_q->notEmpty);
         sem_post(sem_chat);
     }
     return NULL;
 }
 
 /* Function for display messages fetched from queue */
-// This function does not access shared memory
 void *DisplayMessageThread(void *q) {
     struct message oldmsg;
     FETCHED_MESSAGE_QUEUE *message_q = (FETCHED_MESSAGE_QUEUE *) q;
@@ -539,7 +520,6 @@ void chat() {
     }
 
     mvwprintw(output_scr, 0, 1, "\n ***** Type /bye to quit!! ***** \n\n");
-    print_chat();
     draw_box();
     scrollok(output_scr, TRUE);
 
