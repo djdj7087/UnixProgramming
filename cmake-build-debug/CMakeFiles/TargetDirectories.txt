@@ -1,0 +1,3 @@
+C:/Users/djdj7/CLionProjects/UnixProgramming/cmake-build-debug/CMakeFiles/signal.dir
+C:/Users/djdj7/CLionProjects/UnixProgramming/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/djdj7/CLionProjects/UnixProgramming/cmake-build-debug/CMakeFiles/rebuild_cache.dir

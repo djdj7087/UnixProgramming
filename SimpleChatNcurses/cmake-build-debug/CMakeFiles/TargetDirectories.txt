@@ -1,3 +1,0 @@
-/home/wooyoung/CLionProjects/SimpleChatNcurses/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/wooyoung/CLionProjects/SimpleChatNcurses/cmake-build-debug/CMakeFiles/SimpleChatNcurses.dir
-/home/wooyoung/CLionProjects/SimpleChatNcurses/cmake-build-debug/CMakeFiles/edit_cache.dir

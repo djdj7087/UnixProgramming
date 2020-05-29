@@ -1,1 +1,0 @@
-/usr/bin/cc -g   CMakeFiles/unixhomework2.dir/chat.c.o  -o unixhomework2 

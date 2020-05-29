@@ -1,3 +1,0 @@
-/home/wooyoung/CLionProjects/unixhomework2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/wooyoung/CLionProjects/unixhomework2/cmake-build-debug/CMakeFiles/unixhomework2.dir
-/home/wooyoung/CLionProjects/unixhomework2/cmake-build-debug/CMakeFiles/edit_cache.dir

@@ -1,7 +1,0 @@
-/snap/clion/111/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/wooyoung/CLionProjects/pthread
--- Configuring done
-CMake Error at CMakeLists.txt:6 (add_executable):
-  No SOURCES given to target: pthreadexit.c
-
-
-CMake Generate step failed.  Build files cannot be regenerated correctly.

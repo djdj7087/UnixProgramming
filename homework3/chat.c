@@ -137,9 +137,8 @@ void *print_time() {
         mvwprintw(time_scr, 2, 1, "elapsed:%2d-%2d-%2d",
                   hour,
                   minute,
-                  second) {
+                  second);
 
-        }
         draw_box();
 
         if (count % 2 == 0) {
