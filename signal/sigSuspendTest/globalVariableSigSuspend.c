@@ -44,5 +44,11 @@ int main() {
         sigsuspend(&zeroMask);
     }
 
+    quitFlag = 0;
+
+    // Reset signal mask which unblocks SIGQUIT
+    if (sigprocmask(SIG_SETMASK, &oldMask, NULL) < 0)
+        perror("SIG_SETMASK error\n");
+
     return 0;
 }
