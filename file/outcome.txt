@@ -1,0 +1,3 @@
+fd1: 3
+fd1's first printf: Hello, UNIX!
+fd2's first printf: How are you?
