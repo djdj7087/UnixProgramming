@@ -1,0 +1,16 @@
+Linux System.
+
+there exist the process (Parent Process)
+which controls/monitors the other process (Child Process)
+
+Parent Process -> fork Child
+
+ -----------------------------
+| Parent (Control Children)   |
+ -----------------------------
+| PCB / PCB (Child Processes) |
+ -----------------------------
+
+* Zombie Process
+==> Use a tiny memory space (PCB 가 그렇게 크지 않기 때문)
+==> 근데 티끌모아 태산이 되어버림. 그래서 Zombie Process 만드는 것을 피해야함.
