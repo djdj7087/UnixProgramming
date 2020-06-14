@@ -1,0 +1,43 @@
+Linux System.
+
+there exist the process (Parent Process)
+which controls/monitors the other process (Child Process)
+
+Parent Process -> fork Child
+
+ -----------------------------
+| Parent (Control Children)   |
+ -----------------------------
+| PCB / PCB (Child Processes) |
+ -----------------------------
+
+* Zombie Process
+==> Use a tiny memory space (PCB 가 그렇게 크지 않기 때문)
+==> 근데 티끌모아 태산이 되어버림. 그래서 Zombie Process 만드는 것을 피해야함.
+
+F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+4 S  1000 15866 15865  0  80   0 -  2547 do_wai pts/1    00:00:00 bash
+0 T  1000 31091 15866  0  80   0 -   624 do_sig pts/1    00:00:00 zombieProcess
+1 Z  1000 31092 31091  0  80   0 -     0 -      pts/1    00:00:00 zombieProcess <defunct>
+0 R  1000 31094 15866  0  80   0 -  2632 -      pts/1    00:00:00 ps
+
+'Z' == Zombie Process
+
+/*---- Zombie Process 종료 (fg means foreground) ----*/
+wooyoung@WooYoung:/mnt/c/Users/djdj7/CLionProjects/UnixProgramming/processControl$ fg
+./zombieProcess
+data: 0
+wooyoung@WooYoung:/mnt/c/Users/djdj7/CLionProjects/UnixProgramming/processControl$ ps -l
+F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+4 S  1000 15866 15865  0  80   0 -  2547 do_wai pts/1    00:00:00 bash
+0 R  1000 31097 15866  0  80   0 -  2632 -      pts/1    00:00:00 ps
+
+* Zombie Process 를 피하려면 어떻게 해야하나(Avoid Zombie Process)?
+
+Parent Process ---(fork)---> Child Process1 ---(fork)---> Child Process2
+                                                ==> Child Process1 is parent of Child Process2
+                                                ==> after fork, terminate Child Process1.
+                                                ==> Child Process2 still alive and it will be orphan process.
+                                                ==> Child Process2 is no zombie process
+                                                ==> Parent Process 가 System daemon 으로 바뀐다.
+                                                ==> 그래서 2nd child Process 는 zombie process 가 아니다.
