@@ -28,12 +28,12 @@ int main() {
 
     ret = pthread_create(&p_thread, NULL, thread_function, (void *)&count);
     if (ret < 0) {
-        perror("thread create error: ");
+        perror("week6_thread create error: ");
     }
 
     pthread_join(p_thread, &threadret);
 
-    printf("thread exit code: %d\n", *((int *)threadret));
-    printf("main thread is finished...\n");
+    printf("week6_thread exit code: %d\n", *((int *)threadret));
+    printf("main week6_thread is finished...\n");
     return 0;
 }

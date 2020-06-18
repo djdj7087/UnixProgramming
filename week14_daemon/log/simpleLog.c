@@ -13,7 +13,7 @@ int main() {
     int fd0, fd1, fd2;
 
     /*
-     * Attach file descriptors 0, 1, 2 to /dev/null
+     * Attach week12_file descriptors 0, 1, 2 to /dev/null
      */
     close(0);
     close(1);

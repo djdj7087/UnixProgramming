@@ -19,8 +19,8 @@ void *doSomething(void *arg) {
     printf("Job %d started\n", counter);
 
     /*
-     * TODO Insert sleep or some long dummy codes to delay thread
-     *  It is takes long time, times up and the other thread will run
+     * TODO Insert sleep or some long dummy codes to delay week6_thread
+     *  It is takes long time, times up and the other week6_thread will run
      */
     for(i = 0 ; i < (0xFFFFFFFF) ; i++);
 
@@ -36,7 +36,7 @@ int main(void) {
     while (i < 2) {
         err = pthread_create(&tid[i], NULL, doSomething, NULL);
         if (err != 0) {
-            perror("thread creation failed: \n");
+            perror("week6_thread creation failed: \n");
             exit(EXIT_FAILURE);
         }
         i++;

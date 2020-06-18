@@ -44,9 +44,9 @@ typedef struct {
     MESSAGE_INFO fetchedMessage[QUEUESIZE];     // Fetched from shared memory
     int head, tail;
     int full, empty;
-    pthread_mutex_t *mutex;                     // mutex for thread
-    pthread_cond_t *notFull;                    // thread condition for not Full
-    pthread_cond_t *notEmpty;                   // thread condition for not Empty
+    pthread_mutex_t *mutex;                     // mutex for week6_thread
+    pthread_cond_t *notFull;                    // week6_thread condition for not Full
+    pthread_cond_t *notEmpty;                   // week6_thread condition for not Empty
 } FETCHED_MESSAGE_QUEUE;
 
 // Function Prototype for fetch message from shared memory

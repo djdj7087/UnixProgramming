@@ -14,24 +14,21 @@
 #include <unistd.h>
 
 void pr_exit(int status) {
-    if( WIFEXITED(status) )
-        printf("normal termination, exit status=%d\n",
+    if (WIFEXITED(status)) {
+        printf("normal termination, exit status = %d\n",
                WEXITSTATUS(status));
-    else if( WIFSIGNALED(status) )
-        printf("abnormal termination, signal number=%d%s\n",
+    } else if (WIFSIGNALED(status))
+        printf("abnormal termination, week9~12_signal number = %d%s\n",
                WTERMSIG(status),
-#ifdef WCOREDUMP
-               WCOREDUMP(status) ? " (core file generated)" : "");
+#ifdef  WCOREDUMP
+               WCOREDUMP(status) ? " (core week12_file generated)" : "");
 #else
         "");
 #endif
-
-    else if( WIFSTOPPED(status) )
-        printf("child stopped, signal number=%d\n",
+    else if (WIFSTOPPED(status))
+        printf("child stopped, week9~12_signal number = %d\n",
                WSTOPSIG(status));
 }
-
-
 
 int main(void) {
 
@@ -90,23 +87,15 @@ int main(void) {
     if ((pid = fork()) < 0)
         perror("fork error");
     else if (pid == 0) {             // Child
-        /**
-         * 여기서 sleep 하면 terminate 되어도 child process 가 끝나지 않음
-         * terminate 되어도 ps 명령어를 보면 child process 가 돌아가고 있는 것 확인 할 수 있음.
-         * 이런 경우를 orphan(고아) process 라고 한다. (Parent Process 가 terminate 되었기 때문에)
-         */
-        sleep(10);
         status /= 0;
     }
 
     printf("\n pid: %d\n", pid);
 
-    waitPID = waitpid(pid, &status, WNOHANG);
+    waitPID = wait(&status);
 
     if (waitPID != pid)       // Wait for child
         perror("wait error");
-    else if (waitPID == 0)
-        perror("Child processes do not finished yet.");
 
     printf("\n waitPID: %d\n", waitPID);
 

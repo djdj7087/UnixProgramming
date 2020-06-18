@@ -10,7 +10,7 @@
 
 sig_atomic_t quitFlag;
 
-// One signal handler for SIGINT and SIGQUIT
+// One week9~12_signal handler for SIGINT and SIGQUIT
 
 static void sig_int(int sigNo) {
     if (sigNo == SIGINT)
@@ -23,12 +23,12 @@ static void sig_int(int sigNo) {
 int main() {
     sigset_t newMask, oldMask, zeroMask;
 
-    // Set signal handler
+    // Set week9~12_signal handler
     if (signal(SIGINT, sig_int) == SIG_ERR)
-        printf("signal(SIGINT) error.\n");
+        printf("week9~12_signal(SIGINT) error.\n");
 
     if (signal(SIGQUIT, sig_int) == SIG_ERR)
-        printf("signal(SIGQUIT) error.\n");
+        printf("week9~12_signal(SIGQUIT) error.\n");
 
     sigemptyset(&zeroMask);
     sigemptyset(&newMask);
@@ -46,7 +46,7 @@ int main() {
 
     quitFlag = 0;
 
-    // Reset signal mask which unblocks SIGQUIT
+    // Reset week9~12_signal mask which unblocks SIGQUIT
     if (sigprocmask(SIG_SETMASK, &oldMask, NULL) < 0)
         perror("SIG_SETMASK error\n");
 

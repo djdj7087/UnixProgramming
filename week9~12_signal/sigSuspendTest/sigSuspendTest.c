@@ -55,7 +55,7 @@ int main(void) {
     sigemptyset(&new_mask);
     sigaddset(&new_mask, SIGINT);
 
-    /* Block SIGINT (Ctrl + C) and save current signal mask (old_mask) */
+    /* Block SIGINT (Ctrl + C) and save current week9~12_signal mask (old_mask) */
     if (sigprocmask(SIG_BLOCK, &new_mask, &old_mask) < 0)
         perror("SIG_BLOCK ERROR: ");
 
@@ -67,7 +67,7 @@ int main(void) {
 
     pr_mask("After return from suspend: ");
 
-    /* Reset signal mask which unblocks SIGINT */
+    /* Reset week9~12_signal mask which unblocks SIGINT */
     if (sigprocmask(SIG_SETMASK, &old_mask, NULL) < 0)
         perror("SIG_SETMASK ERROR: ");
 

@@ -21,14 +21,14 @@ void *thread_function(void *data) {
     printf("Thread %lu Created.\n", (unsigned long int) id);
 
     while (1) {
-        // From... each thread change values...
+        // From... each week6_thread change values...
         //         race competition.....
         // That's why we need synchronization
         // Before jumping into critical section, we need a lock
         sem_wait(&mysem);
         tmp = count;
         tmp++;
-        sleep(1); // insert code to make another thread run
+        sleep(1); // insert code to make another week6_thread run
         count  = tmp;
         count++;
         printf("%lu: %d\n", (unsigned long int) id, count);
@@ -37,7 +37,7 @@ void *thread_function(void *data) {
         // we are done with the critical section
         // Need to release the lock
         sem_post(&mysem);
-        sleep(2); // insert code to make another thread run
+        sleep(2); // insert code to make another week6_thread run
     }
 }
 
@@ -58,7 +58,7 @@ int main() {
         ret = pthread_create(&p_thread[i], NULL,
                              thread_function, (void *) &i);
         if (ret < 0) {
-            perror("thread create error: ");
+            perror("week6_thread create error: ");
             exit(0);
         }
     }

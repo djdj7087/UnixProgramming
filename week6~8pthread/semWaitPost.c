@@ -11,13 +11,13 @@ sem_t semp;
 int val;
 
 void *wait_fun(void *arg) {
-    printf("wait_fun thread starts...\n");
+    printf("wait_fun week6_thread starts...\n");
 
     while (1) {
         sem_wait(&semp);
         sem_getvalue(&semp, &val);
 
-        printf("wait_fun thread: sem_value: %d\n", val);
+        printf("wait_fun week6_thread: sem_value: %d\n", val);
     }
 }
 

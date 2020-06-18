@@ -65,7 +65,7 @@ void chat() {
     buff_out.id = 0;
     is_running = 1;
 
-    /* declare for thread */
+    /* declare for week6_thread */
     pthread_t thread[4];
 
     pthread_create(&thread[0], NULL, get_input, NULL);
