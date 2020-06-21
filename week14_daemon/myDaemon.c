@@ -28,7 +28,7 @@ int daemon_init(void) {
     /* Child Continues */
     setsid();
     chdir("/");
-    /* Clear our week12_file mode creation mask */
+    /* Clear our file mode creation mask */
     umask(0);
 
     return 0;

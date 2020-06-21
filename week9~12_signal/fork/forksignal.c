@@ -29,7 +29,7 @@ int main() {
         printf("Child Process is Running....\n");
         sleep(2);
         printf("Child sending SIGALRM!!\n");
-        /* Send alarm week9~12_signal to parent */
+        /* Send alarm signal to parent */
         kill(getppid(), SIGALRM);
         sleep(5);
         printf("Child is exiting...\n");

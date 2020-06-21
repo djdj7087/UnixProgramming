@@ -23,7 +23,7 @@ int main(void) {
 
     sigset_t new_mask, old_mask, pend_mask;
 
-    /* Set week9~12_signal handler */
+    /* Set signal handler */
     if (signal(SIGQUIT, sig_quit) == SIG_ERR)
         perror("Cannot catch SIGQUIT: \n");
 
@@ -52,7 +52,7 @@ int main(void) {
 
     sleep(5);
 
-    /* SIGQUIT here will terminate with core week12_file */
+    /* SIGQUIT here will terminate with core file */
 
 //    for (;;);
 

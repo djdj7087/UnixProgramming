@@ -18,15 +18,15 @@ void pr_exit(int status) {
         printf("normal termination, exit status = %d\n",
                WEXITSTATUS(status));
     } else if (WIFSIGNALED(status))
-        printf("abnormal termination, week9~12_signal number = %d%s\n",
+        printf("abnormal termination, signal number = %d%s\n",
                WTERMSIG(status),
 #ifdef  WCOREDUMP
-               WCOREDUMP(status) ? " (core week12_file generated)" : "");
+               WCOREDUMP(status) ? " (core file generated)" : "");
 #else
         "");
 #endif
     else if (WIFSTOPPED(status))
-        printf("child stopped, week9~12_signal number = %d\n",
+        printf("child stopped, signal number = %d\n",
                WSTOPSIG(status));
 }
 

@@ -19,12 +19,12 @@ void daemonize(const char *cmd) {
     struct sigaction sa;
 
     /*
-     * Clear week12_file creation mask
+     * Clear file creation mask
      * The Child Process inherit umask value from its parent
      */
     umask(0);
 
-    /* Get the maximum number of week12_file descriptors */
+    /* Get the maximum number of file descriptors */
     if (getrlimit(RLIMIT_NOFILE, &rl) < 0)
         fprintf(stderr, "%s can't fet week12_file limit", cmd);
 
@@ -57,7 +57,7 @@ void daemonize(const char *cmd) {
 
     /*
      * Change the current working directory to the root
-     * so, we will not prevent the week12_file systems from being unmounted
+     * so, we will not prevent the file systems from being unmounted
      */
     if (chdir("/") < 0)
         fprintf(stderr, "%s can't change directory to /(root)", cmd);
@@ -72,14 +72,14 @@ void daemonize(const char *cmd) {
         close(i);
 
     /*
-     * Attach week12_file descriptors 0, 1, 2 to /dev/null
+     * Attach file descriptors 0, 1, 2 to /dev/null
      */
     fd0 = open("/dev/null", O_RDWR);
     fd1 = dup(0);
     fd2 = dup(0);
 
     /*
-     * Initialize the log week12_file
+     * Initialize the log file
      */
     openlog(cmd, LOG_CONS, LOG_DAEMON);
     if (fd0 != 0 || fd1 != 1 || fd2 != 2) {

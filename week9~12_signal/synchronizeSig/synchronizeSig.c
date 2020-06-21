@@ -13,7 +13,7 @@
 static volatile sig_atomic_t sigFlag;
 static sigset_t newMask, oldMask, zeroMask;
 
-/* One week9~12_signal handler for SIGUSR1 and SIGUSR2 */
+/* One signal handler for SIGUSR1 and SIGUSR2 */
 static void sig_usr(int sigNo) {
     sigFlag = 1;
 }
@@ -39,9 +39,9 @@ static void char_at_a_time(char *str) {
 
 void TELL_WAIT(void) {
     if (signal(SIGUSR1, sig_usr) == SIG_ERR)
-        perror("week9~12_signal(SIGUSR1) error");
+        perror("signal(SIGUSR1) error");
     if (signal(SIGUSR2, sig_usr) == SIG_ERR)
-        perror("week9~12_signal(SIGUSR2) error");
+        perror("signal(SIGUSR2) error");
 
     /* Initialize mask set */
     sigemptyset(&zeroMask);
@@ -49,7 +49,7 @@ void TELL_WAIT(void) {
     sigaddset(&newMask, SIGUSR1);
     sigaddset(&newMask, SIGUSR2);
 
-    /* Block SIGUSR1 and SIGUSR2, and save current week9~12_signal mask */
+    /* Block SIGUSR1 and SIGUSR2, and save current signal mask */
     if (sigprocmask(SIG_BLOCK, &newMask, &oldMask) < 0)
         perror("SIG_BLOCK error");
 
@@ -63,7 +63,7 @@ void WAIT_PARENT(void) {
     while (sigFlag == 0)
         sigsuspend(&zeroMask);
 
-    /* Back to the previous week9~12_signal mask (SIG_BLOCK with SIGUSR2 and SIGUSR1) */
+    /* Back to the previous signal mask (SIG_BLOCK with SIGUSR2 and SIGUSR1) */
     /*
      * Still blocking SIGUSR1 and SIGUSR2 when we access sigFlag....
      * Why? - sigFlag is shared by parent and child process and sigFlag can be
@@ -76,9 +76,9 @@ void WAIT_PARENT(void) {
      * Now we need to allow SIGUSR1 and SIGUSR2 for the next synchronization
      * Parent and Child processes can receive the SIGUSR1 & SIGUSR2 from each other
      *
-     * That's why Reset week9~12_signal mask to original value
+     * That's why Reset signal mask to original value
      *
-     * We need to allow sending week9~12_signal SIGUSR1 and SIGUSR2...
+     * We need to allow sending signal SIGUSR1 and SIGUSR2...
      * Why? - When we are finished with critical
      *
      * If you do not allow further SIGUSR1 and SIGUSR2...
@@ -96,7 +96,7 @@ void WAIT_CHILD(void) {
     while (sigFlag == 0)
         sigsuspend(&zeroMask);
 
-    /* Back to the previous week9~12_signal mask (SIG_BLOCK with SIGUSR2 and SIGUSR1) */
+    /* Back to the previous signal mask (SIG_BLOCK with SIGUSR2 and SIGUSR1) */
     /*
      * Still blocking SIGUSR1 and SIGUSR2 when we access sigFlag....
      * Why? - sigFlag is shared by parent and child process and sigFlag can be
@@ -109,9 +109,9 @@ void WAIT_CHILD(void) {
      * Now we need to allow SIGUSR1 and SIGUSR2 for the next synchronization
      * Parent and Child processes can receive the SIGUSR1 & SIGUSR2 from each other
      *
-     * That's why Reset week9~12_signal mask to original value
+     * That's why Reset signal mask to original value
      *
-     * We need to allow sending week9~12_signal SIGUSR1 and SIGUSR2...
+     * We need to allow sending signal SIGUSR1 and SIGUSR2...
      * Why? - When we are finished with critical
      *
      * If you do not allow further SIGUSR1 and SIGUSR2...
@@ -125,7 +125,7 @@ int main(void) {
     pid_t pid;
     char str[100];
 
-    /* Initialize week9~12_signal mask and handler */
+    /* Initialize signal mask and handler */
     TELL_WAIT();
 
     if ((pid = fork()) < 0) {
