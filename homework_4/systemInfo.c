@@ -44,26 +44,6 @@ void make_daemon() {
     setsid();
 
     /*
-     * Change the current working directory to the root
-     * so, we will not prevent the file systems from being unmounted
-     */
-    /* If directory is already exist... remove previous directory and recreate */
-    if (rmdir("/tmp/homework_4") < 0) {
-        /* If directory has cse file, cannot remove directory, so remove cse file. */
-        if (remove("/tmp/homework_4/cse") < 0)
-            fprintf(stderr, "this program cannot remove cse file.\n");
-        rmdir("/tmp/homework_4");
-    }
-
-    /* First, make new directory */
-    if (mkdir("/tmp/homework_4", 0777) < 0)
-        fprintf(stderr, "homework_4 directory is already exist.\n");
-
-    /* Second, we move to current working directory */
-    if (chdir("/tmp/homework_4") < 0)
-        fprintf(stderr, "log_watch_dog can't change directory to /tmp/homework_4\n");
-
-    /*
      * Initialize the log file
      */
     openlog("201524600", LOG_CONS, LOG_DAEMON);
@@ -101,6 +81,7 @@ void log_watch_dog() {
      * After Open wtmp file, we need to detect changes in wtmp.
      * So, we need current cursor and some changes in wtmp file.
      */
+
     // First, we need to move cursor to end of wtmp file.
     fseek(wtmp, 0, SEEK_END);
 
@@ -118,6 +99,7 @@ void log_watch_dog() {
      * So, We need to detect wtmp file's changes.
      * if wtmp_log_size is not equal to wtmp_old_log_size, it means wtmp file has change.
      */
+
     // First, check if wtmp_log_size and wtmp_old_log_size is equal.
     if (wtmp_log_size != wtmp_old_log_size) {
         // Second, if wtmp_log_size and wtmp_old_log_size is not equal, Read all logs in wtmp file
@@ -137,6 +119,7 @@ void log_watch_dog() {
              * else if 'logout', utmp's type is DEAD_PROCESS.
              * I will use these types and write to cse file about user's log information.
              */
+
             // First, user_info's type is USER_PROCESS.
             if (new_user_info.ut_type == USER_PROCESS) {
                 sprintf(log_buf, "USER: %s, LOG_IN TIME: %s\n", new_user_info.ut_user, time_buf);
@@ -168,6 +151,19 @@ void log_watch_dog() {
 int main(void) {
 
     make_daemon();
+
+    /*
+     * Change the current working directory to the root
+     * so, we will not prevent the file systems from being unmounted
+     */
+
+    /* First, make new directory */
+    if (mkdir("/tmp/homework_4", 0777) < 0)
+        fprintf(stderr, "homework_4 directory is already exist.\n");
+
+    /* Second, we move to current working directory */
+    if (chdir("/tmp/homework_4") < 0)
+        fprintf(stderr, "log_watch_dog can't change directory to /tmp/homework_4\n");
 
     while (1) {
         log_watch_dog();
