@@ -44,6 +44,26 @@ void make_daemon() {
     setsid();
 
     /*
+     * Change the current working directory to the root
+     * so, we will not prevent the file systems from being unmounted
+     */
+    /* If directory is already exist... remove previous directory and recreate */
+    if (rmdir("/tmp/homework_4") < 0) {
+        /* If directory has cse file, cannot remove directory, so remove cse file. */
+        if (remove("/tmp/homework_4/cse") < 0)
+            fprintf(stderr, "this program cannot remove cse file.\n");
+        rmdir("/tmp/homework_4");
+    }
+
+    /* First, make new directory */
+    if (mkdir("/tmp/homework_4", 0777) < 0)
+        fprintf(stderr, "homework_4 directory is already exist.\n");
+
+    /* Second, we move to current working directory */
+    if (chdir("/tmp/homework_4") < 0)
+        fprintf(stderr, "log_watch_dog can't change directory to /tmp/homework_4\n");
+
+    /*
      * Initialize the log file
      */
     openlog("201524600", LOG_CONS, LOG_DAEMON);
@@ -148,30 +168,6 @@ void log_watch_dog() {
 int main(void) {
 
     make_daemon();
-
-    /*
-     * Change the current working directory to the root
-     * so, we will not prevent the file systems from being unmounted
-     */
-    /* If directory is already exist... remove previous directory and recreate */
-    if (rmdir("/tmp/homework_4") < 0) {
-        /* If directory has cse file, cannot remove directory, so remove cse file. */
-        if (remove("/tmp/homework_4/cse") < 0) {
-            fprintf(stderr, "this program cannot remove cse file.\n");
-            return 0;
-        }
-        rmdir("/tmp/homework_4");
-    }
-
-    /* First, make new directory */
-    if (mkdir("/tmp/homework_4", 0777) < 0)
-        fprintf(stderr, "homework_4 directory is already exist.\n");
-
-    /* Second, we move to current working directory */
-    if (chdir("/tmp/homework_4") < 0) {
-        fprintf(stderr, "log_watch_dog can't change directory to /tmp/homework_4\n");
-        return 0;
-    }
 
     while (1) {
         log_watch_dog();
