@@ -60,20 +60,6 @@ void log_watch_dog() {
     char log_buf[100];      // variable for log message
 
     /*
-     * Change the current working directory to the root
-     * so, we will not prevent the file systems from being unmounted
-     */
-    /* First, make new directory */
-    if (mkdir("/tmp/homework_4", 0777) < 0)
-        fprintf(stderr, "homework_4 directory is already exist.\n");
-
-    /* Second, we move to current working directory */
-    if (chdir("/tmp/homework_4") < 0) {
-        fprintf(stderr, "log_watch_dog can't change directory to /tmp/homework_4\n");
-        return;
-    }
-
-    /*
      * Make cse file under the /tmp/homework_4
      * which I made just before in line 35-42
      */
@@ -162,6 +148,20 @@ void log_watch_dog() {
 int main(void) {
 
     make_daemon();
+
+    /*
+     * Change the current working directory to the root
+     * so, we will not prevent the file systems from being unmounted
+     */
+    /* First, make new directory */
+    if (mkdir("/tmp/homework_4", 0777) < 0)
+        fprintf(stderr, "homework_4 directory is already exist.\n");
+
+    /* Second, we move to current working directory */
+    if (chdir("/tmp/homework_4") < 0) {
+        fprintf(stderr, "log_watch_dog can't change directory to /tmp/homework_4\n");
+        return 0;
+    }
 
     while (1) {
         log_watch_dog();
