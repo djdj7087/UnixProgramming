@@ -5,9 +5,9 @@
 #include <stdio.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <stdlib.h>
 
 #define BUF_SIZE 1024
 
@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
 
     client_address.sin_family = AF_INET;
     client_address.sin_addr.s_addr = inet_addr(argv[1]);
-    client_address.sin_port = htons(argv[2]);
+    client_address.sin_port = htons(atoi(argv[2]));
 
     if (connect(client_socket, (struct sockaddr *)&client_address,
             sizeof(client_address)) < 0) {
